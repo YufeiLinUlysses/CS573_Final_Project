@@ -17,10 +17,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var mdb = "mongodb://localhost:27017"
+var serverAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
+var clientOptions = options.Client().
+    ApplyURI("mongodb+srv://Ulysses:Odessey123581321!@cluster0.6oh1v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
+    SetServerAPIOptions(serverAPIOptions)
 var ctx, cancel = context.WithTimeout(context.Background(), 500*time.Second)
-var client, mongoErr = mongo.Connect(ctx, options.Client().ApplyURI(mdb))
-
+var client, mongoErr = mongo.Connect(ctx, clientOptions)
 var db = client.Database("cs573Data")
 var col = db.Collection("ted_talk")
 
@@ -53,7 +55,7 @@ func fetchVideosByTopic(response http.ResponseWriter, request *http.Request) {
 	params := mux.Vars(request)
 	topic := params["topic"]
 	opt := options.Find()
-	opt.SetProjection(bson.M{"title": 1, "main_speaker": 1, "duration": 1, "views": 1})
+	opt.SetProjection(bson.M{"title": 1, "main_speaker": 1, "duration": 1, "views": 1, "tags": 1, "published_date": 1})
 	cursor, err := col.Find(context.TODO(), bson.M{"tags": bson.M{"$in": []string{topic}}}, opt)
 
 	if err != nil {
