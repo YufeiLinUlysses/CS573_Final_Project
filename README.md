@@ -8,7 +8,7 @@ Look at the document.
    
 ### Main Page
 1. Refresh button
-2. Search bar - search for topic api
+2. Search bar
 return type:
 [
     "v1"
