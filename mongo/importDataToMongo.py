@@ -3,7 +3,8 @@ import csv
 import json
 import ast
 
-mongoClient = MongoClient("mongodb+srv://Ulysses:Odessey123581321!@cluster0.6oh1v.mongodb.net/cs573Data?retryWrites=true&w=majority")
+mongoClient = MongoClient(
+    "mongodb+srv://Ulysses:<password>@cluster0.6oh1v.mongodb.net/cs573Data?retryWrites=true&w=majority")
 print(mongoClient)
 db = mongoClient.cs573Data
 db.ted_talk.drop()

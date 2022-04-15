@@ -19,7 +19,7 @@ import (
 
 var serverAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
 var clientOptions = options.Client().
-    ApplyURI("mongodb+srv://Ulysses:Odessey123581321!@cluster0.6oh1v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
+    ApplyURI("mongodb+srv://Ulysses:<password>@cluster0.6oh1v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
     SetServerAPIOptions(serverAPIOptions)
 var ctx, cancel = context.WithTimeout(context.Background(), 500*time.Second)
 var client, mongoErr = mongo.Connect(ctx, clientOptions)
