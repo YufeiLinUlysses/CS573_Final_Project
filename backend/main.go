@@ -17,12 +17,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var serverAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
-var clientOptions = options.Client().
-    ApplyURI("mongodb+srv://Ulysses:<password>@cluster0.6oh1v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
-    SetServerAPIOptions(serverAPIOptions)
+// var serverAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
+// var clientOptions = options.Client().
+// 	ApplyURI("mongodb+srv://Ulysses:Odessey123581321!@cluster0.6oh1v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
+// 	SetServerAPIOptions(serverAPIOptions)
+var mdb = "mongodb://localhost:27017"
 var ctx, cancel = context.WithTimeout(context.Background(), 500*time.Second)
-var client, mongoErr = mongo.Connect(ctx, clientOptions)
+// var client, mongoErr = mongo.Connect(ctx, clientOptions)
+var client, mongoErr = mongo.Connect(ctx, options.Client().ApplyURI(mdb))
 var db = client.Database("cs573Data")
 var col = db.Collection("ted_talk")
 
