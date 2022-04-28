@@ -31,7 +31,6 @@
 	
 	<!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="libraries/lib.css">
-    <link rel="stylesheet" type="text/css" href="libraries/calender/calendar.css">
 	
 	<!-- Custom - Common CSS -->
 	<link rel="stylesheet" type="text/css" href="css/plugins.css">
@@ -177,14 +176,22 @@
 	
 	<!-- JQuery v1.11.3 -->
 	<script src="js/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	
 	<!-- Library JS -->
 	<script src="libraries/lib.js"></script>
-	<script src="libraries/calender/jquery-ui-datepicker.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 		
 	<!-- Library - Theme JS -->	
 	<script src="js/functions.js"></script>
+
+
+	<script>
+		
+		var topic = localStorage.getItem('topic');
+		console.log(topic)
+
+	</script>
     
 	
 </body>

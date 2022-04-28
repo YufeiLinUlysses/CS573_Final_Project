@@ -31,7 +31,6 @@
 	
 	<!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="libraries/lib.css">
-    <link rel="stylesheet" type="text/css" href="libraries/calender/calendar.css">
 	
 	<!-- Custom - Common CSS -->
 	<link rel="stylesheet" type="text/css" href="css/plugins.css">
@@ -106,7 +105,6 @@
 	
 	<!-- Library JS -->
 	<script src="libraries/lib.js"></script>
-	<script src="libraries/calender/jquery-ui-datepicker.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 		
 	<!-- Library - Theme JS -->	
@@ -115,14 +113,68 @@
     <script src="https://d3js.org/d3.v2.js"></script>
 
     <script type="text/javascript">
-        var nodes = [ { name: "Guilin", link:"1" }, { name: "Guangzhou", link:"1" },
-              { name: "Xiamen", link:"1" }, { name: "Hangzhou", link:"1" },
-              { name: "Shanghai", link:"1" }, { name: "Qingdao", link:"1" },
-              { name: "Tianjin", link:"1" } ];
 
-        var edges = [ { source : 0 , target: 1 } , { source : 0 , target: 2 } ,
-               { source : 0 , target: 3 } , { source : 1 , target: 4 } ,
-               { source : 1 , target: 5 } , { source : 1 , target: 6 } ];
+        var data =  $.parseJSON($.ajax({
+            url: "https://raw.githubusercontent.com/YufeiLinUlysses/CS573_Final_Project/zeng/pages/data/ted_talk.json",
+            dataType: "json", 
+            async: false
+        }).responseText);
+        console.log(data[1]);
+        console.log(typeof(data))
+        console.log(data[1].related_talks)
+        console.log(typeof(data[1].related_talks))
+        console.log(data[1].related_talks.length)
+        console.log(data[1].related_talks[1])
+        console.log(data[1].related_talks[1].title)
+
+        var title = "Averting the climate crisis"
+
+        var related = getRelated(title)
+
+        var relatedArr = []
+
+        relatedArr.push(title)
+
+        console.log(related)
+        console.log(typeof(related))
+
+        for(let i = 0; i < related.length; i++){
+            relatedArr.push(related[i].title)
+        }
+
+        console.log(relatedArr)
+
+        var urlArr = []
+
+        for(let i = 0; i < relatedArr.length; i++){
+            for(let j = 0; j < data.length; j++){
+                if(data[j].title === relatedArr[i]){
+                    urlArr.push(data[j].url)
+                }
+            }
+        }
+
+        console.log(urlArr)
+
+        var nodes = []
+        for(let i = 0; i < relatedArr.length; i++){
+            var node = {
+                title: relatedArr[i],
+                url: urlArr[i]
+            };
+            nodes.push(node)
+        }
+        console.log(nodes)
+        
+        var edges = []
+        for(let i = 1; i < relatedArr.length; i++){
+            var edge = {
+                source: 0,
+                target: i
+            };
+            edges.push(edge)
+        }
+        console.log(edges)
 
         genearteNetwork(nodes, edges)
 
@@ -135,8 +187,8 @@
                      .nodes(nodes) 
                      .links(edges) 
                      .size([width,height]) 
-                     .linkDistance(300) 
-                     .charge([-400]); 
+                     .linkDistance(230) 
+                     .charge([-1200]); 
             
             force.start(); 
 
@@ -146,7 +198,7 @@
             var svg = d3.select("#my_related")
                     .append("svg")
                     .attr("preserveAspectRatio", "xMidYMid meet")
-                    .attr("viewBox", "-150 -300 1000 1000");
+                    .attr("viewBox", "-150 -260 1000 1000");
 
             var svg_edges = svg.selectAll("line")
                                 .data(edges)
@@ -161,24 +213,36 @@
                 .data(nodes)
                 .enter()
                 .append("circle")
-                .attr("r",55)
+                .attr("r",50)
                 .style("fill",function(d,i){
                     return color(i);
                 })
+                .call(force.drag)
                 .on("click", function (d) {
                     click(d)
                 });
             
-            var svg_texts = svg.selectAll("text")
+            var svg_texts = svg.selectAll("text.title")
                 .data(nodes)
                 .enter()
                 .append("text")
                 .style("fill", "white")
-                .attr("dx", -20)
-                .attr("dy", 8)
+                .attr("dx", -80)
+                .attr("dy", -10)
                 .text(function(d){
-                   return d.name;
-                }).on("click", function() { console.log('sdfg'); })
+                   return d.title;
+                }).on("click", function(d) { click(d)});
+
+            var svg_texts_url = svg.selectAll("text.url")
+                .data(nodes)
+                .enter()
+                .append("text")
+                .style("fill", "blue")
+                .attr("dx", -30)
+                .attr("dy", 15)
+                .text(function(d){
+                   return "Video Link";
+                }).on("click", function(d) { window.open(d.url);})
             
             force.on("tick", function(){ 
 
@@ -194,30 +258,77 @@
 
                 svg_texts.attr("x", function(d){ return d.x; })
                    .attr("y", function(d){ return d.y; });
+
+                svg_texts_url.attr("x", function(d){ return d.x; })
+                   .attr("y", function(d){ return d.y; });
              });
         }
 
         function click(node) {
-            console.log(node.name)
+            console.log(node.title)
             d3.selectAll("svg").remove();
 
-            var nodes = [ { name: "1" , link:"1"}, { name: "2", link:"1" },
-              { name: "3", link:"1" }, { name: "4", link:"1" },
-              { name: "5", link:"1" }, { name: "6" , link:"1"},
-              { name: "7", link:"1" } ];
+            var title = node.title
 
-            var edges = [ { source : 0 , target: 1 } , { source : 0 , target: 2 } ,
-               { source : 0 , target: 3 } , { source : 1 , target: 4 } ,
-               { source : 1 , target: 5 } , { source : 1 , target: 6 } ];
+            var related = getRelated(title)
 
-            genearteNetwork(nodes, edges)
+            var relatedArr = []
+
+            relatedArr.push(title)
+
+            console.log(related)
+            console.log(typeof(related))
+
+            for(let i = 0; i < related.length; i++){
+                relatedArr.push(related[i].title)
+            }
+
+            console.log(relatedArr)
+
+            var urlArr = []
+
+            for(let i = 0; i < relatedArr.length; i++){
+                for(let j = 0; j < data.length; j++){
+                    if(data[j].title === relatedArr[i]){
+                        urlArr.push(data[j].url)
+                    }
+                }
+            }
+
+            console.log(urlArr)
+
+            var nodes = []
+            for(let i = 0; i < relatedArr.length; i++){
+                var node = {
+                    title: relatedArr[i],
+                    url: urlArr[i]
+                };
+                nodes.push(node)
+            }
+            console.log(nodes)
+        
+            var edges = []
+            for(let i = 1; i < relatedArr.length; i++){
+                var edge = {
+                    source: 0,
+                    target: i
+                };
+                edges.push(edge)
+            }
+            console.log(edges)
+
+                genearteNetwork(nodes, edges)
         }
 
-        function dblclick(node){
-            console.log(node.name)
-            window.open('./list.html');
+        function getRelated(title){
+            for(let i = 0; i < data.length; i++){
+                if (data[i].title === title){
+                    var relatedObj = data[i].related_talks
+                    break;
+                }
+            }
+            return relatedObj;
         }
-
          
 	</script>
 </body>
