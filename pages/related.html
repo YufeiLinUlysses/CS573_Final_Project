@@ -187,7 +187,7 @@
                      .nodes(nodes) 
                      .links(edges) 
                      .size([width,height]) 
-                     .linkDistance(230) 
+                     .linkDistance(200) 
                      .charge([-1200]); 
             
             force.start(); 
@@ -198,7 +198,7 @@
             var svg = d3.select("#my_related")
                     .append("svg")
                     .attr("preserveAspectRatio", "xMidYMid meet")
-                    .attr("viewBox", "-150 -260 1000 1000");
+                    .attr("viewBox", "-200 -260 1100 1100");
 
             var svg_edges = svg.selectAll("line")
                                 .data(edges)
@@ -213,7 +213,7 @@
                 .data(nodes)
                 .enter()
                 .append("circle")
-                .attr("r",50)
+                .attr("r",10)
                 .style("fill",function(d,i){
                     return color(i);
                 })
@@ -238,8 +238,9 @@
                 .enter()
                 .append("text")
                 .style("fill", "blue")
-                .attr("dx", -30)
-                .attr("dy", 15)
+                .attr("dx", -25)
+                .attr("dy", 20)
+                .attr("font-size",10)
                 .text(function(d){
                    return "Video Link";
                 }).on("click", function(d) { window.open(d.url);})

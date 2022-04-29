@@ -3,7 +3,7 @@
 <!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html class=""><!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html style="height:fit-content"><!--<![endif]-->
 <head>
 	<meta charset="utf-8">
 
@@ -43,6 +43,11 @@
 	<!--[if lt IE 9]>
 		<script src="js/html5/respond.min.js"></script>
     <![endif]-->
+	<style>
+		body {
+		  min-height: 100vh;
+		}
+	</style>
 	
 </head>
 
@@ -83,94 +88,30 @@
 		
 	</header><!-- Header Section /- -->
 	
-	<main class="site-main page-spacing">
+	<main class="site-main page-spacing" style="width: 100%;height: 4000px;">
 		<div class="section-padding"></div>
-		<div class="container" style="background-image: url('images/slider/jr-and-ted-logo.webp');width: 100%;opacity: 0.7;">
+		<div class="container" style="min-height: 100%;background-image: url('images/slider/jr-and-ted-logo.webp');width: 100%;opacity: 0.7;">
 			<!-- Portfolio Section -->
-			<div id="portfolio-section" class="container-fluid portfolio-section no-padding">		
-				<div class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding" style="align-items: center;">
+			<div id="portfolio-section" class="container-fluid portfolio-section no-padding" style="height: fit-content;">		
+				<div id="contents" class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding" style="align-items: center;height:fit-content;">
             
-					<div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-top: 5%;margin-left: 15%;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-top: 5%;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-left: 15%;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-left: 15%;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-left: 15%;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;background-color: white;opacity: 0.8;">
-						<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-							<p>Title:</p>
-                            <p>Speakers:</p>
-                            <p>Time:</p>
-                            <p>views:</p>
-						</a>
-					</div>
+					
 				</div>
-                <div class="section-padding"></div>
-				<nav class="ow-pagination" style="margin-top: 30%;opacity: 0.8;">
-					<ul class="pagination">						
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li>
-							<a href="#" aria-label="Next">
-								<span class="fa fa-angle-right" aria-hidden="true"></span>
-							</a>
-						</li>
-					</ul>
-				</nav>
+			</div>
+			<div style="display: none;" id="templates">
+				<div id="post-template" class="col-md-4 col-sm-4 col-xs-6 no-padding" style="border-style: groove; margin: 5px;margin-top: 5%;margin-left: 10%;background-color: white;opacity: 0.8;">
+					<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
+						<p id="post-title">Title:</p>
+						<p id="post-Speakers">Speakers:</p>
+						<p id="post-time">Time:</p>
+						<p id="post-views">views:</p>
+					</a>
+				</div>
 			</div>
 		</div><!-- Portfolio Section /- -->
+		
 		<div class="section-padding"></div>
+		
     </main>
 		
 	
@@ -190,6 +131,43 @@
 		
 		var topic = localStorage.getItem('topic');
 		console.log(topic)
+
+		var data = $.parseJSON($.ajax({
+            url: "https://raw.githubusercontent.com/YufeiLinUlysses/CS573_Final_Project/zeng/pages/data/ted_talk.json",//json文件位置，文件名
+            dataType: "json", //返回数据格式为json
+            async: false
+        }).responseText);
+
+        var dataset = []
+        var cnt = 0
+        for (var d in data) {
+            var cur = data[d]
+            if (cur["tags"].includes(topic)) {
+                dataset.push(cur)
+                cnt++;
+            }
+
+        }
+        console.log(dataset)
+        function LoopTest() {
+            let posts = $("#contents");
+            for (let i = 0; i < dataset.length; i++) {
+                let title = dataset[i]["title"];
+                let speakers = dataset[i]["main_speaker"]
+                let time = dataset[i]["duration"]
+                let views = dataset[i]["views"];
+
+                let postClone = $("#templates #post-template").clone();
+
+                postClone.find("#post-title").text("Title: " + title);
+                postClone.find("#post-Speakers").text("Speakers: " + speakers);
+                postClone.find("#post-time").text("Duration: " + time);
+                postClone.find("#post-views").text("Views: " + views);
+
+                posts.append(postClone);
+            }
+        }
+        LoopTest()
 
 	</script>
     
