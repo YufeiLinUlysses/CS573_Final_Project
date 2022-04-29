@@ -122,6 +122,7 @@
                     <p id="post-Speakers">Speakers:</p>
                     <p id="post-time">Time:</p>
                     <p id="post-views">views:</p>
+                    <button id="post-btn">View Video</button>
                 </a>
             </div>
         </div>
@@ -181,11 +182,18 @@
                 postClone.find("#post-Speakers").text("Speakers: " + speakers);
                 postClone.find("#post-time").text("Duration: " + time);
                 postClone.find("#post-views").text("Views: " + views);
-
+                postClone.find("#post-btn").attr("id", "post-btn-" + title)
                 posts.append(postClone);
             }
         }
         LoopTest()
+        document.body.addEventListener('click', function (event) {
+            if (event.target.id.includes("post-btn")) {
+                var cur = event.target.id;
+                var title = cur.split("-")[2]
+                localStorage.setItem("title",title)
+            };
+        });
     </script>
 
 

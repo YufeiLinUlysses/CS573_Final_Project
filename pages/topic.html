@@ -49,7 +49,7 @@
 
 </head>
 
-<body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+<body data-offset="200" data-spy="scroll" data-target=".ow-navigation" onload="onloadPage()">
     <!-- Loader -->
     <div id="site-loader" class="load-complete">
         <div class="loader">
@@ -169,11 +169,10 @@
             input.addEventListener("keypress", function (event) {
                 // If the user presses the "Enter" key on the keyboard
                 if (event.key === "Enter") {
-                    alert(input.value)
                     const t = input.value
                     console.log(input.value + ":" + data[input.value])
                     if (topicArr.includes(t)) {
-                        dataset = {
+                        var dataset = {
                             "children": [
                                 {
                                     "Name": t,
@@ -183,9 +182,11 @@
                         }
                         d3.selectAll("svg").remove();
                         generateBubble(dataset)
+                        event.preventDefault();
+                        localStorage.setItem('topicData', dataset)
                         return
                     }
-                    else{
+                    else {
                         alert("Please enter an existing topic.")
                     }
 
@@ -193,31 +194,39 @@
 
                 }
             });
+            function onloadPage() {
+                // var dataset = localStorage.getItem("topicData")
+                // console.log(dataset["children"])
+                var dataset = null
+                if (dataset == null) {
+                    dataset = {
+                        "children": [{ "Name": topics[0], "Count": count[0] },
+                        { "Name": topics[1], "Count": count[1] },
+                        { "Name": topics[2], "Count": count[2] },
+                        { "Name": topics[3], "Count": count[3] },
+                        { "Name": topics[4], "Count": count[4] },
+                        { "Name": topics[5], "Count": count[5] },
+                        { "Name": topics[6], "Count": count[6] },
+                        { "Name": topics[7], "Count": count[7] },
+                        { "Name": topics[8], "Count": count[8] },
+                        { "Name": topics[9], "Count": count[9] },
+                        { "Name": topics[10], "Count": count[10] },
+                        { "Name": topics[11], "Count": count[11] },
+                        { "Name": topics[12], "Count": count[12] },
+                        { "Name": topics[13], "Count": count[13] },
+                        { "Name": topics[14], "Count": count[14] },
+                        { "Name": topics[15], "Count": count[15] },
+                        { "Name": topics[16], "Count": count[16] },
+                        { "Name": topics[17], "Count": count[17] },
+                        { "Name": topics[18], "Count": count[18] },
+                        { "Name": topics[19], "Count": count[19] }]
+                    };
+                }
 
-            dataset = {
-                "children": [{ "Name": topics[0], "Count": count[0] },
-                { "Name": topics[1], "Count": count[1] },
-                { "Name": topics[2], "Count": count[2] },
-                { "Name": topics[3], "Count": count[3] },
-                { "Name": topics[4], "Count": count[4] },
-                { "Name": topics[5], "Count": count[5] },
-                { "Name": topics[6], "Count": count[6] },
-                { "Name": topics[7], "Count": count[7] },
-                { "Name": topics[8], "Count": count[8] },
-                { "Name": topics[9], "Count": count[9] },
-                { "Name": topics[10], "Count": count[10] },
-                { "Name": topics[11], "Count": count[11] },
-                { "Name": topics[12], "Count": count[12] },
-                { "Name": topics[13], "Count": count[13] },
-                { "Name": topics[14], "Count": count[14] },
-                { "Name": topics[15], "Count": count[15] },
-                { "Name": topics[16], "Count": count[16] },
-                { "Name": topics[17], "Count": count[17] },
-                { "Name": topics[18], "Count": count[18] },
-                { "Name": topics[19], "Count": count[19] }]
-            };
 
-            generateBubble(dataset);
+                generateBubble(dataset);
+            }
+
 
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
