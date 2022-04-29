@@ -73,13 +73,7 @@
 					<div class="logo-block col-md-3"><a href="main.html" title="FindTed"><img src="images/logo.jpg" alt="Logo" /></a></div>
 					<div class="col-md-9 contact-detail">
 						<div class="menu-search">
-							<div id="sb-search" class="sb-search">
-								<form>
-									<input class="sb-search-input" placeholder="Enter your search topic..." type="text" value="" name="search" id="search" />
-									<button class="sb-search-submit"><img src="images/search-ic.png" alt="Search" /></button>
-									<span class="sb-icon-search"></span>
-								</form>
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -93,20 +87,23 @@
 		<div class="container" style="min-height: 100%;background-image: url('images/slider/jr-and-ted-logo.webp');width: 100%;opacity: 0.7;">
 			<!-- Portfolio Section -->
 			<div id="portfolio-section" class="container-fluid portfolio-section no-padding" style="height: fit-content;">		
-				<div id="contents" class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding" style="align-items: center;height:fit-content;">
+				<div id="contents" class="col-md-12 col-sm-12 col-xs-12 portfolio-list no-padding" style="align-items: center;height:fit-content;margin-left: 15%;margin-top: 5%;">
             
 					
 				</div>
 			</div>
 			<div style="display: none;" id="templates">
 				<div class="section-padding"></div>
-				<div id="post-template" class="col-md-4 col-sm-4 col-xs-6 no-padding" style="height: fit-content;border-style: groove; margin: 5px;margin-top: 3%;margin-bottom: 2%;margin-left: 10%;background-color: white;opacity: 0.8;">
-					<a href="related.html" title="Portfolio" class="popup-modal" style="text-align: center;">
-						<p id="post-title">Title:</p>
-						<p id="post-Speakers">Speakers:</p>
-						<p id="post-time">Time:</p>
-						<p id="post-views">views:</p>
-					</a>
+				<div class="section-padding"></div>
+				<div id="post-template" class="col-md-4 col-sm-4 col-xs-6 no-padding"
+					style="border-style:solid; margin: 5px;background-color: white;opacity: 0.9;">
+					<a title="Video Detail" class="popup-modal" style="text-align: center;align-items: center;">
+						<p id="post-title" style="margin-top: 5%;">Title:</p >
+						<p id="post-Speakers">Speakers:</p >
+						<p id="post-time">Time:</p >
+						<p id="post-views">views:</p >
+						<button id="post-btn" style="margin-left: 33%;margin-bottom: 5%;">View Related Video</button>
+					</a >
 				</div>
 			</div>
 		</div><!-- Portfolio Section /- -->
@@ -164,11 +161,22 @@
                 postClone.find("#post-Speakers").text("Speakers: " + speakers);
                 postClone.find("#post-time").text("Duration: " + time);
                 postClone.find("#post-views").text("Views: " + views);
-
+                postClone.find("#post-btn").attr("id", "post-btn-" + title)
                 posts.append(postClone);
             }
         }
         LoopTest()
+
+        document.body.addEventListener('click', function (event) {
+            if (event.target.id.includes("post-btn")) {
+                var cur = event.target.id;
+                var title = cur.split("-")[2]
+				console.log(title)
+                localStorage.setItem("title",title)
+				window.open('./related.html');
+            };
+        });
+
 
 	</script>
     

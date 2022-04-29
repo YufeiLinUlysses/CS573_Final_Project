@@ -69,11 +69,7 @@
 					<div class="col-md-9 contact-detail">
 						<div class="menu-search">
 							<div id="sb-search" class="sb-search">
-								<form>
-									<input class="sb-search-input" placeholder="Enter your search topic..." type="text" value="" name="search" id="search" />
-									<button class="sb-search-submit"><img src="images/search-ic.png" alt="Search" /></button>
-									<span class="sb-icon-search"></span>
-								</form>
+							
 							</div>
 						</div>
 					</div>
@@ -127,7 +123,9 @@
         console.log(data[1].related_talks[1])
         console.log(data[1].related_talks[1].title)
 
-        var title = "Averting the climate crisis"
+        var title = localStorage.getItem('title');
+
+        console.log(title)
 
         var related = getRelated(title)
 

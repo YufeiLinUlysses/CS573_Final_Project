@@ -43,6 +43,20 @@
 	<!--[if lt IE 9]>
 		<script src="js/html5/respond.min.js"></script>
     <![endif]-->
+    <style>
+        div.tooltip {   
+          position: absolute;           
+          text-align: center;           
+          width: 100px;                  
+          height: 30px;                 
+          padding: 2px;             
+          font: 12px sans-serif;        
+          background: lightsteelblue;   
+          border: 0px;      
+          border-radius: 8px;           
+          pointer-events: none;         
+        }
+    </style>
 	
 </head>
 
@@ -71,7 +85,7 @@
 							<div id="sb-search" class="sb-search">
 								<form>
 									<input class="sb-search-input" placeholder="Enter your search topic..." type="text" value="" name="search" id="search" />
-									<button class="sb-search-submit"><img src="images/search-ic.png" alt="Search" /></button>
+									<button type="button" class="sb-search-submit"><img src="images/search-ic.png" alt="Search" /></button>
 									<span class="sb-icon-search"></span>
 								</form>
 							</div>
@@ -92,7 +106,16 @@
 					<div class="item active">
 						<img src="images/slider/jr-and-ted-logo.webp" alt="Slide" width="100%" style="opacity: 0.7;"/>
 						<div class="carousel-caption" id="my_topics" style="margin-top: 5%;">
+
+                            
 						</div>
+                        <div class="tooltip">
+                            <div>
+                                <a></a>
+                                <span></span>
+                            </div>
+                        </div>
+                        
                         <div class="carousel-caption" style="margin-left: 70%;margin-top: 20%;">
                             <a href="#" title="Change Topics" data-animation="animated fadeInUp" onclick="updataData()">change topics <i class="fa fa-long-arrow-right"></i></a>
                         </div>
@@ -219,13 +242,19 @@
         
             var bubble = d3.pack(dataset)
                 .size([width, height])
-                .padding(1.5);
+                .padding(2);
         
             var svg = d3.select("#my_topics")
                 .append("svg")
                 .attr("preserveAspectRatio", "xMidYMid meet")
                 .attr("viewBox", "-200 -200 1000 1000")
                 .attr("class", "bubble");
+
+            var div = d3.select("body").append("div")   
+                .attr("class", "tooltip")               
+                .style("opacity", 0);
+            
+            const tooltip = d3.select('.tooltip');
         
             var nodes = d3.hierarchy(dataset)
                 .sum(function(d) { return d.Count; });
@@ -254,13 +283,31 @@
                 .style("fill", function(d,i) {
                     return color(i);
                 })
+                .on('mouseover', function (d) {
+                    console.log(d)
+                    div.transition()        
+                        .duration(200)      
+                        .style("opacity", .9);      
+                    div .html(d.data.Name + "<br/>"  + d.data.Count)  
+                        .style("left", (d3.event.pageX) + "px")     
+                        .style("top", (d3.event.pageY - 28) + "px");
+
+                    d3.select(this).style('stroke', '#222');
+                })
+                .on('mouseout', function (d) {
+                    d3.select(this).style('stroke', 'none');
+                    div.transition()        
+                        .duration(500)      
+                        .style("opacity", 0);
+                    return tooltip.style('visibility', 'hidden');
+                })
                 .on("click", function(d){click(d)});
             
             node.append("text")
                 .attr("dy", ".2em")
                 .style("text-anchor", "middle")
                 .text(function(d) {
-                    return d.data.Name.substring(0, d.r / 3);
+                    return d.data.Name;
                 })
                 .attr("font-family", "sans-serif")
                 .attr("font-size", function(d){
@@ -354,7 +401,7 @@
                     const t = input.value
                     console.log(input.value + ":" + data[input.value])
                     if (topicArr.includes(t)) {
-                        dataset = {
+                        var dataset = {
                             "children": [
                                 {
                                     "Name": t,
@@ -364,9 +411,11 @@
                         }
                         d3.selectAll("svg").remove();
                         generateBubble(dataset)
+                        event.preventDefault();
+                        localStorage.setItem('topicData', dataset)
                         return
                     }
-                    else{
+                    else {
                         alert("Please enter an existing topic.")
                     }
 
