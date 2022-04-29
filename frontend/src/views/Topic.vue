@@ -22,12 +22,14 @@
 
 <script>
 import videoCard from "../components/video.vue";
+import axios from "axios";
 export default {
   components: {
     videoCard,
   },
   data() {
     return {
+      allVideos: [],
       searchedVideo: "",
       selectedVideos: [],
       videos: [],
@@ -38,7 +40,8 @@ export default {
     getVideo() {
       if (this.videoTitle.includes(this.searchedVideo)) {
         var ind = this.videoTitle.indexOf(this.searchedVideo);
-        this.selectedVideos = [this.videos[ind]];
+        this.selectedVideos = [this.selectedVideos[ind]];
+        console.log(this.selectedVideos);
       } else {
         alert("Not Found");
       }
@@ -52,21 +55,26 @@ export default {
   mounted() {
     this.$store.state.curpage = "Find Your Video";
     var vm = this;
-    this.$http
-      .get("getvideos/" + vm.$route.params.topicname)
+    var searchedTopic = this.$route.params.topicname;
+    axios
+      .get(
+        "https://raw.githubusercontent.com/YufeiLinUlysses/CS573_Final_Project/zeng/pages/data/ted_talk.json"
+      )
       .then(async function (response) {
-        console.log("Load Topic Page");
-        var videos = response.data;
-        vm.videos = videos;
-        var tmp = [];
-        for (var v in videos) {
-          console.log(videos[v]);
-
-          tmp.push(videos[v]["title"]);
+        var data = response.data;
+        console.log(data);
+        vm.allVideos = data;
+        var qualified = [];
+        var qualifiedTitle = [];
+        for (var d in data) {
+          var cur = data[d];
+          if (cur["tags"].includes(searchedTopic)) {
+            qualified.push(cur);
+            qualifiedTitle.push(cur["title"]);
+          }
         }
-        vm.videoTitle = tmp;
-        vm.selectedVideos = vm.videos;
-        console.log(vm.videoTitle);
+        vm.selectedVideos = qualified;
+        vm.videoTitle = qualifiedTitle;
       });
   },
 };
