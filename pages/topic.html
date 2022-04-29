@@ -345,6 +345,35 @@
                 
             generateBubble(dataset);
         }
+
+        var input = document.getElementById("search");
+            input.addEventListener("keypress", function (event) {
+                // If the user presses the "Enter" key on the keyboard
+                if (event.key === "Enter") {
+                    //alert(input.value)
+                    const t = input.value
+                    console.log(input.value + ":" + data[input.value])
+                    if (topicArr.includes(t)) {
+                        dataset = {
+                            "children": [
+                                {
+                                    "Name": t,
+                                    "Count": data[t]
+                                }
+                            ]
+                        }
+                        d3.selectAll("svg").remove();
+                        generateBubble(dataset)
+                        return
+                    }
+                    else{
+                        alert("Please enter an existing topic.")
+                    }
+
+                    // search in data for the specifc value
+
+                }
+            });
     
 	</script>
     
