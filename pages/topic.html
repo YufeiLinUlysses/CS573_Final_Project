@@ -454,7 +454,7 @@
                             dataset.children.push(data1)
                         }
                         console.log(dataset)
-                        
+
                         d3.selectAll("svg").remove();
                         generateBubble(dataset)
                         event.preventDefault();
@@ -463,6 +463,8 @@
                     }
                     else{
                         alert("Please enter an existing topic.")
+                        event.preventDefault();
+                        return
                     }
                     
                     //if (topicArr.includes(t)) {
