@@ -204,6 +204,8 @@
                 {"Name":topics[18],"Count":count[18]},
                 {"Name":topics[19],"Count":count[19]}]
         };
+
+        console.log(dataset)
                 
         generateBubble(dataset);
                 
@@ -423,24 +425,64 @@
                     //alert(input.value)
                     const t = input.value
                     console.log(input.value + ":" + data[input.value])
-                    if (topicArr.includes(t)) {
-                        var dataset = {
-                            "children": [
-                                {
-                                    "Name": t,
-                                    "Count": data[t]
-                                }
-                            ]
+                    var topics = []
+                    for(var i = 0; i < topicArr.length; i++){
+                        if (topicArr[i].match(t) != null){
+                            topics.push(topicArr[i])
                         }
+                    }
+                    if(topics.length != 0){
+                        console.log(topics)
+                        var count = []
+
+                        for(i in data) {
+                            for(let j = 0; j < topics.length; j++){
+                                if(i === topics[j]){
+                                    //console.log(topics[j])
+                                    count.push(data[i])
+                                }
+                            }
+                        }
+                        console.log(count)
+                        var dataset = {}
+                        dataset.children = []
+
+                        for(var i = 0; i < topics.length; i++){
+                            var data1 = {}
+                            data1.Name = topics[i]
+                            data1.Count = count[i]
+                            dataset.children.push(data1)
+                        }
+                        console.log(dataset)
+                        
                         d3.selectAll("svg").remove();
                         generateBubble(dataset)
                         event.preventDefault();
-                        localStorage.setItem('topicData', dataset)
                         return
+
                     }
-                    else {
+                    else{
                         alert("Please enter an existing topic.")
                     }
+                    
+                    //if (topicArr.includes(t)) {
+                    //    var dataset = {
+                    //        "children": [
+                    //            {
+                    //                "Name": t,
+                    //                "Count": data[t]
+                    //            }
+                    //        ]
+                    //    }
+                    //    d3.selectAll("svg").remove();
+                    //    generateBubble(dataset)
+                    //    event.preventDefault();
+                    //    localStorage.setItem('topicData', dataset)
+                    //    return
+                    //}
+                    //else {
+                    //    alert("Please enter an existing topic.")
+                    //}
 
                     // search in data for the specifc value
 
