@@ -11,6 +11,8 @@ Screen-cast: [screen-cast link](https://www.youtube.com/watch?v=WPHyvr4XTw8)
 
 Process book: [process book link](https://github.com/YufeiLinUlysses/CS573_Final_Project/blob/main/Process%20book%20-%20Find%20Your%20TED.pdf)
 
+Our final project source code is in the pages folder. The backend and frontend folders are our failed versions. The mongo folder contains the data processing.
+
 ## Goals
 1. Show the ratio of the number of videos under different topics.
 2. Show the relations between videos to let users find the next video to watch.
